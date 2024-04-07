@@ -1,4 +1,4 @@
 streamlit
 openpyxl
-streamlit run deudores.py
+streamlit run Almacen.py
 

@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import openpyxl
+import time
 
 # Leer el archivo de Excel si existe, si no, crear un dataframe vacío
 try:
@@ -29,7 +30,6 @@ if submit_button:
     new_row = {'Nombre del Cliente':nombre_del_cliente, 'Producto':producto, 'Fecha de Compra':fecha_de_compra, 'Valor del Producto':valor_del_producto, 'Valor Abonado':valor_abonado, 'Fecha de Abono':fecha_de_abono, 'Valor Restante':valor_restante}
     data = pd.concat([data, pd.DataFrame(new_row, index=[0])], ignore_index=True)
 
-
     # Calcular el valor total de la deuda para cada cliente
     data['Valor Total de Deuda'] = data.groupby('Nombre del Cliente')['Valor Restante'].transform('sum')
 
@@ -39,5 +39,9 @@ if submit_button:
     # Si el valor total de la deuda es 0, eliminar los registros de ese cliente
     data = data[data['Valor Total de Deuda'] != 0]
 
-    # Actualizar la aplicación para reflejar los cambios en el archivo de Excel
+    # Mostrar un mensaje de éxito y pausar por 2 segundos antes de desaparecer
+    st.success('Los datos se guardaron correctamente.')
+    time.sleep(2)  # Pausa de 2 segundos
+
+    # Limpiar el formulario reiniciando la página
     st.experimental_rerun()
