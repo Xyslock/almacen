@@ -7,7 +7,7 @@ image = Image.open(image_path)
 
 # Configurar la página
 st.set_page_config(
-    page_title="Presentación LooneyToons",
+    page_title="Almacen LooneyToons",
     page_icon="🐰",
     layout="wide",
 )
