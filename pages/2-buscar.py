@@ -14,12 +14,11 @@ if st.button('Buscar'):
     # Mostrar el resultado
     st.write(resultado)
     
-    # Suma del valor total de la deuda
-    suma_deuda = resultado['Valor Total de Deuda'].sum()
-    st.write(f'Suma del Valor Total de Deuda: {suma_deuda}')
-
-    # Botón de eliminar registro
-    for index, row in resultado.iterrows():
-        if st.button(f"Eliminar {index}"):
-            df.drop(index, inplace=True)
-            st.write(f"Registro {index} eliminado.")
+    # Tomar el último registro para cada nombre de cliente
+    ultimo_registro_por_cliente = resultado.groupby('Nombre del Cliente').last()
+    
+    # Calcular la suma de la deuda para el cliente seleccionado
+    total_deuda = ultimo_registro_por_cliente['Valor Total de Deuda'].sum()  
+      
+    # Mostrar el total de la deuda como label en la parte superior
+    st.subheader(f"Total de Deuda para {nombre_cliente}: ${total_deuda:.2f}")
